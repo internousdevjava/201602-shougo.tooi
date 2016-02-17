@@ -18,16 +18,17 @@ public class KisoKadai2 {
 		// TODO 自動生成されたメソッド・スタブ
 		Boolean flag = true;
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1);
-		System.out.println("数当てゲーム！\n「exit」を入力すると終了します。");
-		System.out.println("1～100の中から正解だと思う数字を入力してください。");
+
 		//正解の数字
 		int correct = 0;
 		//試行回数
 		int count = 0;
-		// exitで抜ける
+		System.out.println("数当てゲーム！");
 		while (true) {
 			if (flag) {
 				// 答え作成
+				System.out.println("「exit」を入力すると終了します。");
+				System.out.println("1～100の中から正解だと思う数字を入力してください。");
 				correct = (int) (Math.random() * 100) + 1;
 				count = 0;
 				flag = false;

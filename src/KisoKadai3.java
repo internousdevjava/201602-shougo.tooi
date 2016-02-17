@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 
 /**
  * @author internous 機能 ・ファイル名に無効な文字が含まれている場合、終了する ・複数行のテキストをファイルに追記、上書きできる
- *         ・存在しないフォルダ内にファイルを作成できる(フォルダも同時生成) ・選択したファイルを削除できる
+ *         ・存在しないフォルダ内にファイルを作成できる(フォルダも同時生成) ・コマンドライン引数からもファイルの指定が可能・選択したファイルを削除できる
  */
 public class KisoKadai3 {
 	/**
@@ -23,13 +23,18 @@ public class KisoKadai3 {
 		while (true) {
 			// ファイル指定画面
 			while (true) {
-				System.out.println("ファイルを指定してください。exitで終了します。");
-				try {
-					str = br.readLine();
-				} catch (IOException e) {
-					// TODO 自動生成された catch ブロック
-					System.out.println("入力に誤りがあります。");
-					continue;
+				if (args == null) {
+					System.out.println("ファイルを指定してください。exitで終了します。");
+					try {
+						str = br.readLine();
+					} catch (IOException e) {
+						// TODO 自動生成された catch ブロック
+						System.out.println("入力に誤りがあります。");
+						continue;
+					}
+				} else {
+					str = args[0];
+					args = null;
 				}
 
 				if (str == null) {
@@ -79,7 +84,7 @@ public class KisoKadai3 {
 
 				// ファイル存在確認
 				if (!file.exists()) {
-					System.out.println();
+					System.out.println(file.getAbsolutePath());
 					if (kakunin("指定されたファイルは存在しません。新規作成しますか？")) {
 						// 新規作成
 						file.createNewFile();
@@ -114,10 +119,10 @@ public class KisoKadai3 {
 
 					} else if (str.equals("app")) {// 追記
 						System.out.println("空白のまま改行することで、保存メニューに移ります。");
-						writeText(br, file, true);
+						writeText(file, true);
 					} else if (str.equals("over")) {// 上書き
 						System.out.println("空白のまま改行することで、保存メニューに移ります。");
-						writeText(br, file, false);
+						writeText(file, false);
 					} else if (str.equals("del")) {
 						if (kakunin(file.getAbsolutePath() + "は削除されます。" + "\nよろしいですか？")) {
 							file.delete();
@@ -183,9 +188,10 @@ public class KisoKadai3 {
 	/*
 	 * ファイルにテキストを書き込む画面
 	 */
-	private static void writeText(BufferedReader br, File file, boolean append) throws IOException {
+	private static void writeText(File file, boolean append) throws IOException {
 		// 複数行書き込みに対応
 		String str;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1);
 		System.out.println("--------------------------------------------------");
 		System.out.println("ファイル:" + file.getPath());
 		System.out.println("--------------------------------------------------");
