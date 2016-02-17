@@ -53,7 +53,7 @@ public class KisoKadai2 {
 				}
 
 				if (num == correct) {
-					System.out.println("正解です！" + count + "回でした。" + "\nおめでとうございます。");
+					System.out.println("正解です！" + count + "回かかりました。" + "\nおめでとうございます。");
 					flag = true;
 				} else {
 					count++;
