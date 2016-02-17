@@ -8,7 +8,8 @@ import java.nio.file.Paths;
 
 /**
  * @author internous 機能 ・ファイル名に無効な文字が含まれている場合、終了する ・複数行のテキストをファイルに追記、上書きできる
- *         ・存在しないフォルダ内にファイルを作成できる(フォルダも同時生成) ・コマンドライン引数からもファイルの指定が可能・選択したファイルを削除できる
+ *         ・存在しないフォルダ内にファイルを作成できる(フォルダも同時生成)
+ *         ・コマンドライン引数からもファイルの指定が可能・選択したファイルを削除できる
  */
 public class KisoKadai3 {
 	/**
@@ -18,7 +19,7 @@ public class KisoKadai3 {
 		// TODO 自動生成されたメソッド・スタブ
 		// コマンドライン引数からパスを取得
 		String path = null;
-		String str = "";
+		String str = null;
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1);
 		while (true) {
 			// ファイル指定画面
@@ -33,12 +34,15 @@ public class KisoKadai3 {
 						continue;
 					}
 				} else {
-					str = args[0];
+					//コマンドラインでパスが指定された場合、判断を仕掛ける
+					if (args.length != 0) {
+						str = args[0];
+					}
 					args = null;
 				}
 
 				if (str == null) {
-					System.out.println("対象パスが空白です。");
+//					System.out.println("対象パスが空白です。");
 					continue;
 				}
 				if (str.equals("exit")) {
@@ -80,7 +84,9 @@ public class KisoKadai3 {
 				}
 
 				// ファイル作成。親ディレクトリから作成する。
-				newCreateDir(dir);
+				if(!newCreateDir(dir)){
+					continue;
+				}
 
 				// ファイル存在確認
 				if (!file.exists()) {
