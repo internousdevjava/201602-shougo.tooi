@@ -25,9 +25,17 @@ public class KisoKadai3 {
 			// ファイル指定画面
 			while (true) {
 				if (args == null) {
-					System.out.println("ファイルを指定してください。exitで終了します。");
+					System.out.println("パスを指定してください。");
+					System.out.println("例)C:\\test\\test.txt");
+					System.out.println("exitで終了します。");
 					try {
 						str = br.readLine();
+						//パス元が記述されない場合=\がない
+						if(str.indexOf("\\") == -1){
+							System.out.println("ディレクトリパスの指定がありません。");
+							continue;
+						}
+
 					} catch (IOException e) {
 						// TODO 自動生成された catch ブロック
 						System.out.println("入力に誤りがあります。");
