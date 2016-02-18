@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -11,22 +13,27 @@ import java.io.InputStreamReader;
  */
 public class KisoKadai1 {
 
-	private static void SpredSheetlike(int num1, int num2) {
-		String text = "";
-		//スペース調整のため、最大桁を求め、埋め合わせる
-		int maxdigit = String.valueOf(num1 * num2).length();
+	private static void SpredSheetlike(int left, int right) {
+		List<String> arr = new ArrayList<String>();
 
-		for (int i = 1; i <= num1; i++) {
-			for (int j = 1; j <= num2; j++) {
+		//スペース調整のため、最大桁を求め、埋め合わせる
+		int maxdigit = String.valueOf(left * right).length();
+
+		for (int i = 1; i <= left; i++) {
+			String text = "";
+			for (int j = 1; j <= right; j++) {
 				int digit = String.valueOf(i * j).length();
 				for(int k = 0; k < maxdigit - digit; k++){
 					text += " ";
 				}
 				text += i * j + " ";
 			}
-			text += "\n";
+			arr.add(text);
 		}
-		System.out.println(text);
+//		System.out.println(text);
+		for(String s: arr){
+			System.out.println(s);
+		}
 	}
 
 	/**
@@ -41,6 +48,7 @@ public class KisoKadai1 {
 			int right = 0;
 			System.out.println("");
 			System.out.println("一つ目の数字入力");
+
 			str = br.readLine();
 			left = Integer.parseInt(str);
 			System.out.println("二つ目の数字入力");
